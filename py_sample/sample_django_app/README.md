@@ -11,3 +11,5 @@ pip install django
 ```shell script
 python manage.py runserver
 ```
+
+open http://localhost:8000/polls on your browser.
