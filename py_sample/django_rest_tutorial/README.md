@@ -5,3 +5,9 @@
 ```shell
 pip install -r requirements.txt
 ```
+
+## run program
+
+```shell
+bash run.sh
+```
