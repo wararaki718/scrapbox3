@@ -1,6 +1,6 @@
 # sample janome analyzer
 
-## build image
+## setup environment
 
 ```shell
 pip install -r requirements.txt
