@@ -1,4 +1,4 @@
-# sample pytroch classifier
+# sample pytorch classifier
 
 ## setup environment
 
