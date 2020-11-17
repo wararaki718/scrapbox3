@@ -4,12 +4,12 @@ from dataclasses import dataclass
 @dataclass
 class Morph:
     surface: str
-    pos: str # pos=part of speech
-    pos1: str
-    pos2: str
-    pos3: str
-    conjugated: str
-    conjugation: str
-    base: str
-    read: str
-    pronunciation: str
+    part_of_speech: str
+    part_of_speech1: str
+    part_of_speech2: str
+    part_of_speech3: str
+    inflected_type: str
+    inflected_form: str
+    base_form: str
+    reading: str
+    phonetic: str
