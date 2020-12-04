@@ -15,7 +15,7 @@ mypy main.py
 except import modules
 
 ```shell
- mypy --follow-imports skip main.py
+mypy --follow-imports skip main.py
 ```
 
 must define type-hint
