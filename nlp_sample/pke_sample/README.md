@@ -3,7 +3,7 @@
 ## setup environment
 
 ```shell
-pip install git+https://github.com/boudinfl/pke.git nltk spacy ginzas
+pip install git+https://github.com/boudinfl/pke.git nltk spacy ginza
 ```
 
 ```shell
