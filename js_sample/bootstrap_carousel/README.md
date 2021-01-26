@@ -1,3 +1,3 @@
 # sample bootstrap carousel
 
-open your browser.
+open index.html on your browser.
