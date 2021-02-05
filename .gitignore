@@ -216,3 +216,5 @@ public
 *.zip
 
 data/
+.data
+*.pth
