@@ -13,7 +13,9 @@ repos:
     hooks:
     -   id: mypy
         name: mypy_app_a
+        args: [--config-file=py_sample/sample_pre_commit/mypy.ini]
         files: ^py_sample/sample_pre_commit/app_a/
     -   id: mypy
         name: mypy_app_b
+        args: [--config-file=py_sample/sample_pre_commit/mypy.ini]
         files: ^py_sample/sample_pre_commit/app_b/
