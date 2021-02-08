@@ -9,5 +9,5 @@ pip install pre-commit mypy
 ## run
 
 ```shell
-pre-commit run
+pre-commit run --all-files
 ```

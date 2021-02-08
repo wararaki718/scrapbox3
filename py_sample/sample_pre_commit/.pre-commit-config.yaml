@@ -12,7 +12,8 @@ repos:
     rev: v0.800
     hooks:
     -   id: mypy
-        name: mypy_a
-        entry: mypy
-        args: [app_a/]
-        types: [python]
+        name: mypy_app_a
+        files: ^py_sample/sample_pre_commit/app_a/
+    -   id: mypy
+        name: mypy_app_b
+        files: ^py_sample/sample_pre_commit/app_b/
