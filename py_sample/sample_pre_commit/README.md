@@ -6,6 +6,8 @@
 pip install pre-commit mypy
 ```
 
+## run
+
 ```shell
-pre-commit install
+pre-commit run
 ```
