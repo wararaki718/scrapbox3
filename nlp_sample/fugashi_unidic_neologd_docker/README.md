@@ -1,4 +1,4 @@
-# sample mecab-python docker image
+# fugashi with unidic neologd
 
 ## build image
 
