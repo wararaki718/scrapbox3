@@ -5,7 +5,9 @@
 
 using Eigen::MatrixXd;
 
-class Sigmoid
+class Layer{};
+
+class Sigmoid : public Layer
 {
 public:
     Sigmoid(){}
@@ -16,7 +18,7 @@ public:
 };
 
 
-class Affine
+class Affine: public Layer
 {
 public:
     Affine(MatrixXd W, MatrixXd b){
@@ -32,6 +34,19 @@ public:
     std::vector<MatrixXd> params;
 };
 
+
+/*
+class TwoLayerNet
+{
+public:
+    TwoLayerNet(int input_size, int hidden_size, int output_size) {
+        auto W1 = MatrixXd::Random(input_size, hidden_size);
+        auto b1 = MatrixXd::Random(hidden_size, hidden_size);
+        auto W2 = MatirxXd::Random(hidden_size, output_size);
+        auto b2 = MatrixXd::Random(hidden_size, output_size);
+    }
+};
+*/
 
 int main()
 {
