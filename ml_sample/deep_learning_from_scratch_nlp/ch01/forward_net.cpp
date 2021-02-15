@@ -1,13 +1,13 @@
+#include <algorithm>
 #include <iostream>
+#include <iterator>
 #include <cmath>
 #include <vector>
 #include <Eigen/Dense>
 
 using Eigen::MatrixXd;
 
-class Layer{};
-
-class Sigmoid : public Layer
+class Sigmoid
 {
 public:
     Sigmoid(){}
@@ -18,9 +18,10 @@ public:
 };
 
 
-class Affine: public Layer
+class Affine
 {
 public:
+    Affine(){}
     Affine(MatrixXd W, MatrixXd b){
         params.push_back(W);
         params.push_back(b);
@@ -35,18 +36,31 @@ public:
 };
 
 
-/*
 class TwoLayerNet
 {
 public:
     TwoLayerNet(int input_size, int hidden_size, int output_size) {
         auto W1 = MatrixXd::Random(input_size, hidden_size);
-        auto b1 = MatrixXd::Random(hidden_size, hidden_size);
-        auto W2 = MatirxXd::Random(hidden_size, output_size);
+        auto b1 = MatrixXd::Random(input_size, hidden_size);
+        auto W2 = MatrixXd::Random(hidden_size, output_size);
         auto b2 = MatrixXd::Random(hidden_size, output_size);
+
+        layer1 = Affine(W1, b1);
+        sigmoid = Sigmoid();
+        layer2 = Affine(W2, b2);
     }
+
+    MatrixXd predict(MatrixXd x) {
+        auto out = layer1.forward(x);
+        out = sigmoid.forward(out);
+        out = layer2.forward(out);
+        return out;
+    }
+
+    Affine layer1;
+    Affine layer2;
+    Sigmoid sigmoid;
 };
-*/
 
 int main()
 {
@@ -64,6 +78,13 @@ int main()
     auto b = MatrixXd::Random(2, 2);
     auto affine = Affine(W, b);
     std::cout << affine.forward(m) << std::endl;
+    std::cout << std::endl;
+
+    int input_size = 2;
+    int hidden_size = 2;
+    int output_size = 1;
+    auto model = TwoLayerNet(input_size, hidden_size, output_size);
+    std::cout << model.predict(m) << std::endl;
 
     return 0;
 }
