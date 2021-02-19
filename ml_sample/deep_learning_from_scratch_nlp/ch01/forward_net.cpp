@@ -6,6 +6,7 @@
 #include <Eigen/Dense>
 
 using Eigen::MatrixXd;
+using Eigen::VectorXd;
 
 class Sigmoid
 {
@@ -22,17 +23,15 @@ class Affine
 {
 public:
     Affine(){}
-    Affine(MatrixXd W, MatrixXd b){
-        params.push_back(W);
-        params.push_back(b);
+    Affine(MatrixXd _W, VectorXd _b){
+        W = _W;
+        b = _b;
     }
     MatrixXd forward(MatrixXd x) {
-        auto W = params[0];
-        auto b = params[1];
-        auto out = x.adjoint() * W + b;
-        return out;
+        return (x* W).rowwise() + b.transpose();
     }
-    std::vector<MatrixXd> params;
+    MatrixXd W;
+    VectorXd b;
 };
 
 
@@ -41,9 +40,9 @@ class TwoLayerNet
 public:
     TwoLayerNet(int input_size, int hidden_size, int output_size) {
         auto W1 = MatrixXd::Random(input_size, hidden_size);
-        auto b1 = MatrixXd::Random(input_size, hidden_size);
+        auto b1 = VectorXd::Random(hidden_size);
         auto W2 = MatrixXd::Random(hidden_size, output_size);
-        auto b2 = MatrixXd::Random(hidden_size, output_size);
+        auto b2 = VectorXd::Random(output_size);
 
         layer1 = Affine(W1, b1);
         sigmoid = Sigmoid();
@@ -62,6 +61,7 @@ public:
     Sigmoid sigmoid;
 };
 
+
 int main()
 {
     MatrixXd m(2, 2);
@@ -75,7 +75,7 @@ int main()
     std::cout << std::endl;
 
     auto W = MatrixXd::Random(2, 2);
-    auto b = MatrixXd::Random(2, 2);
+    auto b = VectorXd::Random(2);
     auto affine = Affine(W, b);
     std::cout << affine.forward(m) << std::endl;
     std::cout << std::endl;
