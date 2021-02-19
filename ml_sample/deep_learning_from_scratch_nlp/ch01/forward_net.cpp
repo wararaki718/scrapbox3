@@ -1,7 +1,5 @@
-#include <algorithm>
-#include <iostream>
-#include <iterator>
 #include <cmath>
+#include <iostream>
 #include <vector>
 #include <Eigen/Dense>
 
