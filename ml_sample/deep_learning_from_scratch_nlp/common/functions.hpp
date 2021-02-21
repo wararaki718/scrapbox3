@@ -30,12 +30,12 @@ double cross_entropy_error(MatrixXd y, MatrixXd t)
     */
 
     //int batch_size = y.rows();
-    std::cout << _y << std::endl;
-    std::cout << _t << std::endl;
+    //std::cout << _y << std::endl;
+    //std::cout << _t << std::endl;
     return -1 * (_t.transpose() * _y.unaryExpr([](double e){return std::log(e);})).sum();
 }
 
-
+/*
 int main()
 {
     MatrixXd y(4, 1);
@@ -52,3 +52,4 @@ int main()
 
     return 0;
 }
+*/
