@@ -11,7 +11,7 @@ sudo apt install libeigen3-dev
 Mac
 
 ```shell
-brew install eigen3
+brew install eigen
 ```
 
 ## compile
@@ -25,7 +25,7 @@ g++ -I /usr/include/eigen3 main.py
 Mac
 
 ```shell
-g++ main.cpp
+g++ -I /usr/local/include/eigen3 main.cpp
 ```
 
 ## run
