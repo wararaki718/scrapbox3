@@ -5,7 +5,7 @@
     </head>
     <body>
         <h1>WebSocket Chat</h1>
-        <form>
+        <form action="" onsubmit="sendMessage(event)">
             <input type="text" id="messageText" autocomplete="off" />
             <button>Send</button>
         </form>
@@ -18,7 +18,7 @@
                 var content = document.createTextNode(event.data);
 
                 message.appendChild(content);
-                message.appendChild(message);
+                messages.appendChild(message);
             };
 
             function sendMessage(event) {
