@@ -1,0 +1,12 @@
+version: "3.7"
+services:
+  client:
+    build: ./client
+    image: websocket-client:1.0
+    ports:
+      - 3000:3000
+  server:
+    build: ./server
+    image: websocket-server:1.0
+    ports:
+      - 5000:5000
