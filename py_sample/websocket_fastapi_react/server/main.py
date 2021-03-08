@@ -1,22 +1,20 @@
-from fastapi import FastAPI, WebSocket
-from fastapi.responses import HTMLResponse
+from fastapi import FastAPI, WebSocket, WebSocketDisconnect
 
-
-# with open('./index.html', 'rt') as f:
-#     html = f.read()
-
+from connection_manager import ConnectionManager
 
 app = FastAPI()
 
-
-# @app.get('/')
-# async def get():
-#     return HTMLResponse(html)
+manager = ConnectionManager()
 
 
-@app.websocket("/ws")
-async def websocket_endpoint(websocket: WebSocket):
-    await websocket.accept()
-    while True:
-        data = await websocket.receive_text()
-        await websocket.send_text(f"Message text was: {data}")
+@app.websocket("/ws/{client_id}")
+async def websocket_endpoint(websocket: WebSocket, client_id: int):
+    await manager.connect(websocket)
+    try:
+        while True:
+            data = await websocket.receive_text()
+            await manager.send_personal_message(f"Message text was: {data}", websocket)
+            await manager.broadcast(f"Client #{client_id} : {data}")
+    except WebSocketDisconnect:
+        manager.disconnect(websocket)
+        await manager.broadcast(f"Client #{client_id} left")
