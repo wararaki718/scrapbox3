@@ -1,9 +1,17 @@
 from typing import Optional
-from fastapi import Cookie, Depends, FastAPI, Query, WebSocket, status
 
+from fastapi import Cookie, Depends, FastAPI, Query, WebSocket, status
+from fastapi.responses import HTMLResponse
 
 app = FastAPI()
 
+
+with open('./index.html', 'rt') as f:
+    html = f.read()
+
+@app.get("/")
+async def get():
+    return HTMLResponse(html)
 
 async def get_cookie_or_token(
     websocket: WebSocket,

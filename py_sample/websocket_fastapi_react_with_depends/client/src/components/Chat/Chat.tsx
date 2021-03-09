@@ -7,7 +7,7 @@ const Chat: React.FC = () => {
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState(new Array<string>());
 
-  var ws: WebSocket;
+  let ws: WebSocket;
   const connect = (event: any): void => {
     ws = new WebSocket(`ws://localhost:5000/items/${item_id}/ws?token=${token}`);
     ws.onmessage = (event: any): void => {
