@@ -1,18 +1,21 @@
 import React, {useState} from 'react';
 
 
+var ws: WebSocket;
+
 const Chat: React.FC = () => {
   const [item_id, setItemId] = useState("");
   const [token, setToken] = useState("");
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState(new Array<string>());
 
-  let ws: WebSocket;
   const connect = (event: any): void => {
     ws = new WebSocket(`ws://localhost:5000/items/${item_id}/ws?token=${token}`);
     ws.onmessage = (event: any): void => {
+      console.log(event.data);
       setMessages([...messages, event.data]);
     };
+    console.log(ws);
     event.preventDefault();
   };
 
@@ -27,9 +30,11 @@ const Chat: React.FC = () => {
   };
 
   const sendMessage = (event: any): void => {
-      ws.send(message);
-      setMessage("");
-      event.preventDefault();
+    console.log(message);
+    console.log(ws)
+    ws.send(message);
+    setMessage("");
+    event.preventDefault();
   };
 
   return (
