@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 
 from optimizer import SGD
 from two_layer_net import TwoLayerNet
-from utils import clip_grads
+from util import clip_grads
 
 
 def remove_duplicate(params: List[np.ndarray], grads: List[np.ndarray]) -> Tuple[np.ndarray, np.ndarray]:
