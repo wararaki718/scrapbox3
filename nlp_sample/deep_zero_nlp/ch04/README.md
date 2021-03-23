@@ -13,3 +13,9 @@ model train
 ```shell
 python train.py
 ```
+
+model evaluation
+
+```shell
+python eval.py
+```
