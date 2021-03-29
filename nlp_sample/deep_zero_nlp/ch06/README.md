@@ -19,3 +19,9 @@ LSTM language model
 ```shell
 python train_rnnlm.py
 ```
+
+better LSTM language model
+
+```shell
+python train_better_rnnlm.py
+```
