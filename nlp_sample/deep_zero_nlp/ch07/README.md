@@ -25,3 +25,9 @@ sample seq2seq trainer
 ```shell
 python train_seq2seq.py
 ```
+
+sample peeky seq2seq
+
+```shell
+python train_better_seq2seq.py
+```
