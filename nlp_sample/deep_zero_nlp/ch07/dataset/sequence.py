@@ -10,7 +10,7 @@ char_to_id = {}
 
 def _update_vocab(txt: str) -> None:
     chars = list(txt)
-    for ), char in enumerate(chars):
+    for _, char in enumerate(chars):
         if char not in char_to_id:
             tmp_id = len(char_to_id)
             char_to_id[char] = tmp_id

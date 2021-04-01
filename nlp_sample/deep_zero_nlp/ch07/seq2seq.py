@@ -13,7 +13,7 @@ class Encoder:
         lstm_Wh = (np.random.randn(hidden_size, 4*hidden_size)/np.sqrt(hidden_size)).astype(float)
         lstm_b = np.zeros(4*hidden_size).astype(float)
 
-        self.embed = TimeEmbedding(embed_W).astype(float)
+        self.embed = TimeEmbedding(embed_W)
         self.lstm = TimeLSTM(lstm_Wx, lstm_Wh, lstm_b, stateful=False)
 
         self.params = self.embed.params + self.lstm.params
@@ -27,7 +27,7 @@ class Encoder:
         return hs[:, -1, :]
 
     def backward(self, dh: np.ndarray) -> None:
-        dhs = np.zero_like(self.hs)
+        dhs = np.zeros_like(self.hs)
         dhs[:, -1, :] = dh
 
         dout = self.lstm.backward(dhs)
