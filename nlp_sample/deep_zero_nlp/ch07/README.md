@@ -19,3 +19,9 @@ sample lstm text generator
 ```shell
 python generate_better_text.py
 ```
+
+sample seq2seq trainer
+
+```shell
+python train_seq2seq.py
+```
