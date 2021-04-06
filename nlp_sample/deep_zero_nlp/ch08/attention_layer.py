@@ -92,7 +92,7 @@ class TimeAttention:
         self.attention_weights = None
 
     def forward(self, hs_enc: np.ndarray, hs_dec: np.ndarray) -> np.ndarray:
-        N, T, H = hs_dec.shape
+        _, T, _ = hs_dec.shape
         out = np.empty_like(hs_dec)
         self.layers = []
         self.attention_weights = []
@@ -102,9 +102,11 @@ class TimeAttention:
             out[:, t, :] = layer.forward(hs_enc, hs_dec[:, t, :])
             self.layers.append(layer)
             self.attention_weights.append(layer.attention_weight)
+
+        return out
     
     def backward(self, dout: np.ndarray) -> Tuple[np.ndarray]:
-        N, T, H = dout.shape
+        _, T, _ = dout.shape
         dhs_enc = 0
         dhs_dec = np.empty_like(dout)
 
