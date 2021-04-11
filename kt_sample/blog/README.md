@@ -9,3 +9,17 @@ use intellij
 ```shell
 ./gredlew check
 ```
+
+## docker image
+
+build
+
+```shell
+./gradlew bootBuildImage --imageName=sample-spring-kt
+```
+
+run
+
+```shell
+docker-compose up
+```
