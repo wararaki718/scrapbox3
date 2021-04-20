@@ -11,9 +11,3 @@ bash download.sh
 ```shell
 pip install transforms fugashi unidic-lite numpy
 ```
-
-## run
-
-```shell
-python main.py
-```
