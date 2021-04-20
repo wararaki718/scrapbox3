@@ -9,5 +9,5 @@ bash download.sh
 ## setup environment
 
 ```shell
-pip install transforms fugashi unidic-lite numpy
+pip install transforms fugashi unidic-lite numpy scikit-learn
 ```
