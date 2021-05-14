@@ -3,5 +3,5 @@
 ## setup environment
 
 ```shell
-pip install numpy scikit-learn matplotlib jupyter
+pip install numpy scikit-learn matplotlib jupyter scipy
 ```
