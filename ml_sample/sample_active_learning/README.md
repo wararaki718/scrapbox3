@@ -3,5 +3,5 @@
 ## setup environment
 
 ```shell
-pip install numpy matplotlib scipy scikit-learn
+pip install numpy matplotlib scipy scikit-learn modAL
 ```
