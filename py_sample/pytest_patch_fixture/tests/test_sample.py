@@ -20,3 +20,7 @@ def test_original(sample) -> None:
 @patch("app.sample.Sample._load_param", dummy_func)
 def test_use_patch(sample) -> None:
     assert sample.test()
+
+
+def test_original_again(sample) -> None:
+    assert sample.test()
