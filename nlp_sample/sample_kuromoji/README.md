@@ -1,0 +1,3 @@
+# kuromoji
+
+use intellij
