@@ -1,8 +1,10 @@
 import io
 import urllib.parse
 from collections import Counter
+from functools import partial
 from typing import Any, List, Tuple, Union
 
+import spacy
 import torch
 from torchtext.data.utils import get_tokenizer
 from torchtext.vocab import Vocab
@@ -66,8 +68,11 @@ def download() -> Tuple[List[Tuple[Union[torch.Tensor, Vocab]]]]:
         extract_archive(download_from_url(urllib.parse.urljoin(URL_BASE, url)))[0] for url in TEST_URLS
     ]
 
-    de_tokenizer = get_tokenizer("spacy", language="de")
-    en_tokenizer = get_tokenizer("spacy", language="en")
+    def _spacy_tokenize(x, spacy):
+        return [tok.text for tok in spacy.tokenizer(x)]
+
+    de_tokenizer = partial(_spacy_tokenize, spacy=spacy.blank("de"))
+    en_tokenizer = partial(_spacy_tokenize, spacy=spacy.blank("en"))
 
     de_vocab = build_vocab(train_filepaths[0], de_tokenizer)
     en_vocab = build_vocab(train_filepaths[1], en_tokenizer)

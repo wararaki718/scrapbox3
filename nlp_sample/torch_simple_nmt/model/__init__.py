@@ -25,12 +25,12 @@ def init_weights(m: nn.Module):
             nn.init.constant_(param.data, 0)
 
 
-def get_model(input_dim: int, output_dim: int, devive: torch.device) -> Seq2Seq:
+def get_model(input_dim: int, output_dim: int) -> Seq2Seq:
     encoder = Encoder(input_dim, ENC_EMB_DIM, ENC_HID_DIM, DEC_HID_DIM, ENC_DROPOUT)
     attention = Attention(ENC_HID_DIM, DEC_HID_DIM, ATTN_DIM)
     decoder = Decoder(output_dim, DEC_EMB_DIM, ENC_HID_DIM, DEC_HID_DIM, DEC_DROPOUT, attention)
 
-    model = Seq2Seq(encoder, decoder, device).to(device)
+    model = Seq2Seq(encoder, decoder).cuda()
     model.apply(init_weights)
     
     return model

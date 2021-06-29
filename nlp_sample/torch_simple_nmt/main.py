@@ -12,7 +12,6 @@ from loader import get_dataloader
 from model import get_model
 
 
-DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 N_EPOCHS = 10
 CLIP = 1
 
@@ -22,8 +21,8 @@ def train(model: nn.Module, loader: DataLoader, optimizer: optim.Adam, criterion
 
     epoch_loss = 0.0
     for _, (src, trg) in enumerate(loader):
-        src = src.to(DEVICE)
-        trg = trg.to(DEVICE)
+        src = src.cuda()
+        trg = trg.cuda()
 
         optimizer.zero_grad()
 
@@ -49,8 +48,8 @@ def evaluate(model: nn.Module, loader: DataLoader, criterion: nn.Module) -> floa
 
     with torch.no_grad():
         for _, (src, trg) in enumerate(loader):
-            src = src.to(DEVICE)
-            trg = trg.to(DEVICE)
+            src = src.cuda()
+            trg = trg.cuda()
 
             output = model(src, trg, 0)
             output = output[1:].view(-1, output.shape[-1])
@@ -75,9 +74,9 @@ def main():
     val_loader = get_dataloader(val_data, de_vocab, en_vocab)
     test_loader = get_dataloader(test_data, de_vocab, en_vocab)
 
-    model = get_model(len(de_vocab), len(en_vocab), DEVICE)
+    model = get_model(len(de_vocab), len(en_vocab))
     optimizer = optim.Adam(model.parameters())
-    criterion = nn.CrossEntropy(ignore_index=en_vocab.stoi["<pad>"])
+    criterion = nn.CrossEntropyLoss(ignore_index=en_vocab.stoi["<pad>"])
 
     best_valid_loss = float("inf")
 

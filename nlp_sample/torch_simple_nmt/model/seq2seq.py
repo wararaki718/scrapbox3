@@ -6,19 +6,18 @@ from torch import Tensor
 
 
 class Seq2Seq(nn.Module):
-    def __init__(self, encoder: nn.Module, decoder: nn.Module, device: torch.device):
+    def __init__(self, encoder: nn.Module, decoder: nn.Module):
         super().__init__()
 
         self.encoder = encoder
         self.decoder = decoder
-        self.device = device
 
     def forward(self, src: Tensor, trg: Tensor, teacher_forcing_ratio: float=0.5) -> Tensor:
         batch_size = src.shape[1]
         max_len = trg.shape[0]
         trg_vocab_size = self.decoder.output_dim
 
-        outputs = torch.zeros(max_len, batch_size, trg_vocab_size).to(self.device)
+        outputs = torch.zeros(max_len, batch_size, trg_vocab_size).cuda()
         encoder_outputs, hidden = self.encoder(src)
 
         output = trg[0,:]

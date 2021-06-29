@@ -7,7 +7,7 @@ from torch import Tensor
 
 class Decoder(nn.Module):
     def __init__(self, output_dim: int, emb_dim: int, enc_hid_dim: int, dec_hid_dim: int, dropout: float, attention: nn.Module):
-        super.__init__()
+        super().__init__()
 
         self.emb_dim = emb_dim
         self.enc_hid_dim = enc_hid_dim
@@ -36,8 +36,9 @@ class Decoder(nn.Module):
         rnn_input = torch.cat((embedded, weighted_encoder_rep), dim=2)
         output, decoder_hidden = self.rnn(rnn_input, decoder_hidden.unsqueeze(0))
 
-        embedded = embedded.unsqueeze(0)
-        output = output.unsqueeze(0)
+        embedded = embedded.squeeze(0)
+        output = output.squeeze(0)
+        weighted_encoder_rep = weighted_encoder_rep.squeeze(0)
 
         output = self.out(torch.cat((output, weighted_encoder_rep, embedded), dim=1))
         return output, decoder_hidden.squeeze(0)

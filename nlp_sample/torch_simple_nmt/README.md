@@ -11,8 +11,8 @@ python -m spacy download en
 python -m spacy download de
 ```
 
-## download dataset
+## run
 
 ```shell
-python download.py
+python main.py
 ```

@@ -23,6 +23,7 @@ def generate_batch(data_batch: List[Tuple[torch.Tensor]]) -> Tuple:
         en_batch.append(torch.cat([torch.tensor([BOS_INDEX]), en_item, torch.tensor([EOS_INDEX])], dim=0))
     de_batch = pad_sequence(de_batch, padding_value=PAD_INDEX)
     en_batch = pad_sequence(en_batch, padding_value=PAD_INDEX)
+    return de_batch, en_batch
 
 
 def get_dataloader(data: List[Tuple[torch.Tensor]], de_vocab: Vocab, en_vocab: Vocab) -> DataLoader:
