@@ -10,13 +10,15 @@ class Model(nn.Module):
         self.num_layers = num_layers
 
         self.embedding = nn.Embedding(vocab_size, wordvec_size)
-        self.rnn = nn.RNN(wordvec_size, hidden_size)
+        self.rnn = nn.RNN(wordvec_size, hidden_size, num_layers, batch_first=True)
         self.linear = nn.Linear(hidden_size, vocab_size)
+        self.softmax = nn.LogSoftmax(dim=1)
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
         x = self.embedding(x)
         x, self.hidden_state = self.rnn(x, self.hidden_state)
         x = self.linear(x)
+        x = self.softmax(x)
         return x
 
     def init_hidden(self, batch_size: int=None):

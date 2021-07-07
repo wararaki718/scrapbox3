@@ -11,7 +11,7 @@ def main():
     batch_size = 32
     wordvec_size = 100
     hidden_size = 100
-    time_size = 1
+    time_size = 32
     lr = 0.1
     max_epoch = 100
 
@@ -41,6 +41,7 @@ def main():
     jump = (corpus_size-1)//batch_size
     offsets = [i*jump for i in range(batch_size)]
 
+    model.train()
     for epoch in range(1, max_epoch+1):
         for iter_ in range(max_iters):
             batch_x = np.empty((batch_size, time_size), dtype=int)
@@ -57,10 +58,11 @@ def main():
                 batch_x = batch_x.cuda()
                 batch_t = batch_t.cuda()
 
+            optimizer.zero_grad()
             model.init_hidden()
 
             y_pred = model.forward(batch_x)
-            loss = criterion(y_pred, batch_t)
+            loss = criterion(y_pred[:,:,-1], batch_t)
             loss.backward()
             optimizer.step()
             total_loss += loss.item()
