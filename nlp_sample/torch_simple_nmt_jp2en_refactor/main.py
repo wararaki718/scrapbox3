@@ -8,15 +8,15 @@ from loader import get_dataloader
 from model import get_model
 from model_selection import evaluate, train
 from preprocess import preprocessing
-from utils import epoch_time, translate
+from utils import epoch_time, translate, sentence_translate
 
 
-N_EPOCHS = 10
+N_EPOCHS = 1
 CLIP = 1
 
 
 def main():
-    train_data, val_data, test_data, ja_vocab, en_vocab = preprocessing()
+    train_data, val_data, test_data, ja_vocab, en_vocab, ja_tokenizer, en_tokenizer = preprocessing()
     train_loader = get_dataloader(train_data, ja_vocab, en_vocab)
     val_loader = get_dataloader(val_data, ja_vocab, en_vocab)
     test_loader = get_dataloader(test_data, ja_vocab, en_vocab)
@@ -54,6 +54,9 @@ def main():
     print("sample output:")
     translate(model, test_loader, ja_vocab, en_vocab)
     print()
+    print("sentence translation:")
+    sentence = "法嗣という師匠から弟子へと悟りの伝達が続き現在に至る"
+    sentence_translate(model, sentence, ja_vocab, en_vocab, ja_tokenizer)
     print("DONE")
 
 

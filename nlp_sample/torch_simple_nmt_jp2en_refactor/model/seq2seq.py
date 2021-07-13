@@ -1,4 +1,5 @@
 import random
+from typing import Optional
 
 import torch
 import torch.nn as nn
@@ -12,9 +13,12 @@ class Seq2Seq(nn.Module):
         self.encoder = encoder
         self.decoder = decoder
 
-    def forward(self, src: Tensor, trg: Tensor, teacher_forcing_ratio: float=0.5) -> Tensor:
+    def forward(self, src: Tensor, trg: Tensor, teacher_forcing_ratio: float=0.5, max_length: Optional[int]=None) -> Tensor:
         batch_size = src.shape[1]
-        max_len = trg.shape[0]
+        if not max_length:
+            max_len = trg.shape[0]
+        else:
+            max_len = max_length
         trg_vocab_size = self.decoder.output_dim
 
         outputs = torch.zeros(max_len, batch_size, trg_vocab_size).cuda()
