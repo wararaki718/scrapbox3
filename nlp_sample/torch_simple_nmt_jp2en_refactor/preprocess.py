@@ -55,7 +55,7 @@ def data_process(filepaths: List[str],
     return data
 
 
-def preprocessing() -> Tuple[List[Tuple[Union[torch.Tensor, Vocab]]]]:
+def preprocessing() -> tuple:
     train_filepaths = [
         os.path.join(DATA_DIR, filename) for filename in TRAIN_FILENAMES
     ]
@@ -96,4 +96,4 @@ def preprocessing() -> Tuple[List[Tuple[Union[torch.Tensor, Vocab]]]]:
         ja_tokenizer,
         en_tokenizer
     )
-    return train_data, val_data, test_data, ja_vocab, en_vocab
+    return train_data, val_data, test_data, ja_vocab, en_vocab, ja_tokenizer, en_tokenizer

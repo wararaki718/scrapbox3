@@ -1,9 +1,11 @@
-from typing import Tuple
+from typing import Any, Tuple
 
 import torch
 import torch.nn as nn
 from torch.utils.data import DataLoader
 from torchtext.vocab import Vocab
+
+from loader import get_dataloader
 
 
 def epoch_time(start_time: int, end_time: int) -> Tuple[int, int]:
@@ -21,6 +23,32 @@ def show(batch_indices: torch.Tensor, vocab: Vocab):
         print([vocab.itos[i] for i in indices])
         break # debug
     print()
+
+
+def sentence_translate(model: nn.Module,
+                       sentence: str,
+                       source_vocab: Vocab,
+                       target_vocab: Vocab,
+                       tokenizer: Any):
+    src = torch.tensor([source_vocab[token] for token in tokenizer(sentence)], dtype=torch.long)
+    trg = torch.tensor([target_vocab["<bos>"]], dtype=torch.long)
+    # eos_index = target_vocab["<eos>"]
+
+    loader = get_dataloader([(src, trg)], source_vocab, target_vocab)
+
+    with torch.no_grad():
+        for _, (src, trg) in enumerate(loader):
+            #print(src.shape)
+            #print(trg.shape)
+            output = model(src.cuda(), trg.cuda(), 0, max_length=128)
+            #print(output.shape)
+
+            output = output.topk(1, dim=2).indices.squeeze()
+            output = torch.reshape(output, (1, -1))
+            #print(output.shape)
+            print(f"before: {sentence}")
+            print("after: ", end="")
+            show(output, target_vocab)
 
 
 def translate(model: nn.Module,
@@ -41,11 +69,11 @@ def translate(model: nn.Module,
             #print(output.shape)
 
             print("source: ", end="")
-            show(src, src_vocab)
+            show(torch.t(src), src_vocab)
 
             print("target: ", end="")
-            show(trg, trg_vocab)
+            show(torch.t(trg), trg_vocab)
 
             print("output: ", end="")
-            show(output, trg_vocab)
+            show(torch.t(output), trg_vocab)
             break # debug
