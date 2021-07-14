@@ -3,7 +3,7 @@
 ## setup environment
 
 ```shell
-pip install pandas jupyter kaggle
+pip install pandas jupyter kaggle matplotlib seaborn
 ```
 
 open a notebook on your browser.
